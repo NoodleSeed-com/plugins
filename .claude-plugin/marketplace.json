@@ -1,0 +1,21 @@
+{
+  "name": "noodleseed",
+  "owner": {
+    "name": "Noodle Seed"
+  },
+  "description": "Official Noodle Seed plugins for coding agents.",
+  "plugins": [
+    {
+      "name": "noodle-seed",
+      "description": "Build production MCP servers and apps with Noodle Seed: author one TypeScript server.ts with the noodle CLI, validate and test locally, then deploy to a governed hosted MCP endpoint that works in ChatGPT, Claude, Codex, Cursor, Gemini, and every MCP client.",
+      "version": "0.24.0",
+      "author": {
+        "name": "Noodle Seed"
+      },
+      "homepage": "https://noodleseed.dev",
+      "license": "Apache-2.0",
+      "category": "developer-tools",
+      "source": "./plugins/noodle-seed"
+    }
+  ]
+}
