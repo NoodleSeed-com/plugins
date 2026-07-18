@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { homedir } from 'node:os';
 
-const CLI_PACKAGE = '@noodleseed/one@0.60.0';
+const CLI_PACKAGE = '@noodleseed/one@0.61.0';
 const HOST = 'claude-code';
 const compatibilityFile = resolve(dirname(fileURLToPath(import.meta.url)), '../noodle-plugin-compatibility.json');
 const configHome = join(homedir(), '.noodle', 'plugin-profiles', HOST);
