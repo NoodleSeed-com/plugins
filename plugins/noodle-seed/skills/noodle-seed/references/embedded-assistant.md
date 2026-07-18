@@ -59,7 +59,7 @@ Use `noodle commands --json` before proposing command flags; do not invent flags
 
 ## Customize the presentation
 
-Keep identity and semantic light/dark colors in the one server-level `branding` block. Put assistant-only structure in the bounded `presentation` object; it accepts curated primitives rather than raw HTML, CSS, SVG, class names, or callbacks:
+Keep portable identity and semantic light/dark colors in the one server-level `branding` block. Put assistant-only structure in the bounded `presentation` object; it accepts curated primitives rather than raw HTML, CSS, SVG, class names, or callbacks:
 
 ```ts
 assistant: embeddedAssistant({
@@ -82,7 +82,9 @@ assistant: embeddedAssistant({
 
 The Atlas-style product treatment above is the maximum deployment-configurable presentation. The bounded surface covers panel treatment, launcher icon/size/session pulse, header mark/status badge, composer controls, and message treatment; it does not accept custom header actions, structured empty-state layouts, footers, spectacle variants/effects, or tenant code.
 
-Omitted fields retain the polished Halo-derived baseline. Precedence is host slots/public `--ns-assistant-*` variables for application-specific integration, then the deployed semantic presentation, then the built-in defaults. Prefer `server.ts` configuration first so every embedding app receives the same assistant after redeploy; use slots only for behavior or content that is genuinely owned by that particular host page.
+Omitted fields retain the quiet premium baseline. For exact application-owned color roles, pass the typed React `appearance={{ light: { panel: { surface, text, border }, composer: {...}, confirmation: {...}, primaryButton: {...} }, dark: {...} }}` prop or assign the same object to `element.appearance`. It covers canvas, panel, header, messages, composer, suggestions, confirmation, buttons, launcher, code, and the MCP App frame. Exact colors are preserved and low contrast emits `assistant-appearance-warning`. Precedence is host appearance object, host slots/public `--ns-assistant-*` variables, deployed semantic presentation, then defaults. Prefer `server.ts` configuration first so every embedding app receives the same assistant after redeploy.
+
+Give every business action a portable `tool(..., { title: "Complete task", description: "This will mark the task complete for everyone.", input: z.object({ task: z.string().meta({ title: "Task" }) }) })` title. The standard confirmation uses the tool title/description plus schema field `title`, `description`, and `format`; it shows Confirm and Don't proceed and keeps technical action details secondary. Do not put JSON or implementation names in business-facing copy.
 
 ## Configure and deploy
 
@@ -102,8 +104,10 @@ Do not put these model values in the embedding SaaS environment. A production de
 Session exchange authenticates with the backend client credentials, so the embed works under any `--access` mode. Add `--access customers` only when verified end customers should also call the MCP endpoint directly. That mode requires `server.auth`; `noodle deploy` preflights the rule locally and fails with `server_auth_required` before contacting the service. Fix by adding auth to server options:
 
 ```ts
-auth: customerAuth.bridge({ verifyUrl: "https://app.example.com/api/auth/verify" }),
-// or a concrete adapter: customerAuth.firebase({ projectId, apiKey })
+auth: customerAuth.federatedOidc({
+  issuers: [{ issuer: "https://id.example.com", audience: "https://api.example.com" }],
+}),
+// or a built-in adapter: customerAuth.firebase({ projectId, apiKey })
 ```
 
 ## Create the backend client
@@ -115,6 +119,14 @@ noodle assistant clients create --name web --org <org> --app <app> --env <env>
 ```
 
 The CLI writes `{ clientId, clientSecret }` to a mode-`0600` file and prints only its path. Move the values into the SaaS backend secret manager without printing or committing them. Rotation invalidates the previous secret.
+
+Validate the active deployment, backend credential, exact origin, and delegated credential exchanges without invoking a business tool:
+
+```sh
+noodle assistant doctor --origin "$PUBLIC_APP_ORIGIN" --org <org> --app <app> --env <env>
+```
+
+The doctor reads `NOODLE_ASSISTANT_CLIENT_ID` / `NOODLE_ASSISTANT_CLIENT_SECRET` or the saved mode-0600 client file and never prints the secret. Pass `--user-id <real-test-user>` only when the downstream exchange requires an existing application user.
 
 ## Integrate the customer backend
 
@@ -168,11 +180,11 @@ context: {
 },
 ```
 
-The callback records declarative fulfilment at author time; the shared runtime executes only read-only connector operations, validates the declared output, and freezes one snapshot for the whole invocation and any accepted interaction. Tools/resources/prompts read `context.temporal`, `context.ambient`, and `context.ambientStatus`. The embedded assistant receives the same snapshot in trusted platform context. Canonical TypeScript `server()` authoring emits an empty context declaration even when you omit the option, so MCP clients receive the reserved read-only `noodle_context` temporal tool with zero setup; add `server.context` only for custom defaults or ambient facts. Raw Core-v1 manifests activate the adapter only when that field is present. Never declare a TypeScript author tool named `noodle_context`. Keep ambient facts compact: the platform caps serialized JSON at 16 KiB, depth 8, and 128 entries per container, and rejects credential-shaped keys.
+The callback records declarative fulfilment at author time; the shared runtime executes only read-only connector operations, validates the declared output, and freezes one snapshot for the whole invocation and any accepted interaction. Tools/resources/prompts read `context.temporal`, `context.ambient`, and `context.ambientStatus`. The embedded assistant receives the same snapshot in trusted platform context. For model-visible application context in every host, designate one normal zero-input tool with `contextProvider: true`; the embedded host preloads it per turn and external hosts call it normally. Core-v1 `server.context` retains the legacy reserved `noodle_context` adapter, while canonical Core-v2 TypeScript authoring does not create or reserve it. Keep ambient facts compact: the platform caps serialized JSON at 16 KiB, depth 8, and 128 entries per container, and rejects credential-shaped keys.
 
 ## Structured missing input
 
-A tool authored with `ctx.elicit({ id, message, input })` produces `input_requested` when it reaches the missing value. The built-in and headless renderers consume the same advertised endpoints and interaction-event protocol: either renderer presents that event and, after the current turn stream completes, calls `respond(id, { action: "accept", content })`; decline/cancel stop the flow. Accepted content is schema-validated and completed steps are not rerun; invalid content returns `arg_invalid` and leaves the same request pending for correction. A chained request receives a fresh id and `tool_completed` appears only after the final answer. Every interactive flow must collect all elicited input before its first connector operation. Elicitation gathers an input; it does not approve a later write, which remains separately confirmation-gated. In a flow marked `confirm: true`, every eligible `input_requested` precedes `tool_proposed`; the final proposal reviews the original tool input, elicited values, and sole exact connector version/operation/resolved arguments. Accept is bound to that action and only then may execution start. Confirmable flows may contain at most one connector operation. Bidirectional MCP transports map missing input to standard form `elicitation/create`; an adapter that cannot carry that request fails before executing the tool. The same negotiated form capability carries a final affirmative confirmation and fails closed when unavailable. At the manifest/runtime boundary and in TypeScript action helpers, omitted or `false` preserves direct execution; action hints alone never gate. `annotations.action({ confirm: false })`, like omission, runs directly, while `annotations.action({ confirm: true })` explicitly enables confirmation.
+A tool authored with `ctx.elicit({ id, message, input })` produces `input_requested` when it reaches missing input. Built-in and headless renderers present it and call `respond(id, { action: "accept", content })`; decline/cancel stop. Accepted content is schema-validated and completed steps are not rerun; invalid content returns `arg_invalid` and keeps the interaction pending. Elicitation gathers an input and does not approve a later write. Every interactive flow collects elicited input before its first connector operation; every eligible `input_requested` precedes `tool_proposed`. In a `confirm: true` flow, the final proposal reviews original input, elicited values, and the sole exact connector action; a confirmable flow has at most one connector operation. Accept is bound to that action. Bidirectional MCP maps missing input to standard `elicitation/create`. On a stateless host, a linked MCP App presents the same normal-user form and re-calls the tool through standard `tools/call`, carrying replay answers in request `_meta` so approval copy contains only business fields; without Apps, the model receives the exact structured schema and an advertised reserved retry field. Both paths replay only the operation-free input prefix and never expose runtime continuation or environment state. Setting `interactions: { confirmationFallback: "host" }` explicitly trusts native host approval only after every elicited field is collected and only when confirmation transport is unavailable; embedded/headless confirmation remains Noodle-owned. Omitted or false annotations execute directly; hints never gate.
 
 ## Verified session context (identity and claims)
 
@@ -277,9 +289,9 @@ if (pendingId) {
 // The same pending id also accepts { action: 'decline' } or { action: 'cancel' }.
 ```
 
-`view_available` means a completed tool has a linked MCP App view. It carries the call/interaction id, tool, `ui://` identity, optional title, and bounded/redacted public result; it does not claim that anything rendered. A headless customer renderer maps that identity to an already-trusted component. Never fetch the `ui://` URI or inject its HTML. The standard element likewise does not render it; it dispatches `assistant-view-available` with the same detail.
+`view_available` means a completed tool has a linked MCP App view. It carries the call/interaction id, tool, `ui://` identity, optional title, bounded/redacted public result, and—on current services—the self-contained bridged document. The standard element is an MCP Apps host and mounts that document behind a double iframe. It supports lifecycle, app tool/resource calls, ui/message, ui/update-model-context, links, resize, and inline/fullscreen; sampling, tasks, downloads, and remote DOM are not advertised. It also dispatches `assistant-view-available` for a customer-owned renderer.
 
-`clientContext` is recomputed for each turn. `updateContext(...)` changes separate untrusted page context for the next session exchange; call `resetSession()` when it must take effect immediately. `updateModelContext({ content, structuredContent })` publishes one cohesive renderer snapshot for later message turns without starting a turn; every call replaces the prior snapshot rather than merging fields. It is untrusted per-turn data, not conversation history or authorization input, and both boundaries reject credential-shaped or unbounded updates. A message may re-exchange once after a pre-execution `401`; the client never auto-retries interaction decisions. `tool_proposed.arguments` is a complete schema-aware review projection and, for connector-backed tools, names the sole exact connector version, operation, and resolved arguments. Sensitive/write-only fields are redacted; truncating or omitting any non-sensitive action field fails closed. Accept is bound to the server-held action and claims at most one execution attempt—clients cannot replace it. Normal terminal outcomes scrub private arguments and continuations immediately; only an accepted action still executing retains them for the one-hour unknown-outcome recovery window, after which it records `interaction_outcome_unknown` and scrubs. Without downstream idempotency this is not an exactly-once business-effect guarantee. To reconcile a lost response, explicitly repeat the same id and decision: the service returns its durable stored outcome without re-execution.
+`clientContext` and typed `pageContext` are recomputed for each turn. `updateContext(...)` remains the legacy session-exchange context; `updatePageContext(...)` replaces the fresh per-turn application hint. `updateModelContext({ content, structuredContent })` publishes one cohesive renderer snapshot for later message turns without starting a turn; every call replaces the prior snapshot rather than merging fields. These are untrusted data, not conversation history or authorization input, and the boundaries reject credential-shaped or unbounded updates. A message may re-exchange once after a pre-execution `401`; the client never auto-retries interaction decisions. `tool_proposed.arguments` is a complete schema-aware review projection and, for connector-backed tools, names the sole exact connector version/operation/resolved arguments. Sensitive/write-only fields are redacted; truncating or omitting any non-sensitive action field fails closed. Accept is bound to the server-held action and claims at most one execution attempt—clients cannot replace it. Normal terminal outcomes scrub private arguments and continuations immediately; only an accepted action still executing retains them for the one-hour unknown-outcome recovery window, after which it records `interaction_outcome_unknown` and scrubs. Without downstream idempotency this is not an exactly-once business-effect guarantee. To reconcile a lost response, explicitly repeat the same id and decision: the service returns its durable stored outcome without re-execution.
 
 ## Toolchain requirements
 
@@ -304,7 +316,7 @@ if (pendingId) {
 | Widget renders but no reply arrives and model usage stays zero | Turns are not reaching the service: outdated `@noodleseed/assistant` package, or the session response was rebuilt/filtered by the backend route | Update the package to the latest version; forward the session response unchanged |
 | `assistant-error` with code `invalid_response` | The turn endpoint returned HTML or non-SSE content (auth redirect, proxy page) | Check the backend session route path and any middleware/rewrites on the embedding app |
 | Build error `Package path ./react is not exported` | Outdated package version with import-only export conditions | Update `@noodleseed/assistant`; do not add webpack aliases or type shims |
-| Deploy fails with `server_auth_required` | `--access customers` without `server.auth` | Add `customerAuth.bridge(...)` or an adapter to server options |
+| Deploy fails with `server_auth_required` | `--access customers` without `server.auth` | Add direct/federated OIDC or a built-in Firebase/Microsoft adapter |
 | Validate rejects an origin | Non-loopback HTTP origin in `allowedOrigins` | Use the exact HTTPS production origin; HTTP is only for `localhost`/`127.0.0.1` |
 | Session exchange returns 404 | `serviceUrl` points at the deployment MCP endpoint | Use the control-plane service URL printed by `noodle assistant clients create` |
 | Session exchange returns 403 `origin is not allowed` | Request origin differs from `allowedOrigins` character-for-character | Align the exact scheme/host/port on both sides and redeploy |
@@ -317,5 +329,5 @@ if (pendingId) {
 | The model invents a team/holiday after context lookup fails | The ambient provider returned invalid data or its read-only connector failed (`ambientStatus: unavailable`) | Fix the provider/connector; treat unavailable ambient facts as missing, never prompt instructions |
 | Decline/cancel reports `unsupported_service` | The session came from a legacy service with no `endpoints.interactions` | Upgrade the service; legacy `toolConfirmations` supports accept only |
 | Behavior does not change after `noodle deploy` | Outdated platform: before the 2026-07 fix, clients were pinned to their creation-time deployment | Update the platform; sessions now follow the tenant's active deployment |
-| A delegated connector tool fails with `delegated token exchange requires a verified customer caller` | The calling surface has no verified customer identity (or an old session minted before the platform carried the resource audience) | Verify `customerAuth` is configured and the backend passes the verified `user` to `createAssistantSession`; re-mint the session |
+| A delegated connector returns `credential_unavailable` / `caller_identity_not_customer` | The calling surface has no verified customer identity (or an old session minted before the platform carried the resource audience) | Verify `customerAuth` is configured, the backend passes the verified `user`, and run `noodle auth doctor --live` |
 | Deploy fails with `unsupported_delegated_provider` | `delegatedOAuth.provider` only supports the managed `firebase`/`microsoft` bridges | Use `auth.kind: "delegatedTokenExchange"` for your own token endpoint (see authoring-workflow.md) |

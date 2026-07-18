@@ -17,9 +17,19 @@ and deploy production MCP servers and apps with the `noodle` CLI from the very f
 
 ```text
 codex plugin marketplace add NoodleSeed-com/plugins
+codex plugin add noodle-seed@noodleseed
 ```
 
-Then install `noodle-seed` from the `noodleseed` marketplace.
+**Cursor**
+
+Add `NoodleSeed-com/plugins` as a custom or team marketplace in Cursor, then install
+`noodle-seed`. Directory listing is tracked separately from direct repository distribution.
+
+Full setup, updates, and removal: [docs/installation.md](docs/installation.md).
+
+## Your first prompt
+
+> Build an MCP app for this project with Noodle Seed. Validate it locally and show me the deployment plan before deploying.
 
 ## What you get
 
@@ -28,8 +38,15 @@ Then install `noodle-seed` from the `noodleseed` marketplace.
 - After `noodle init`, projects carry their own self-updating project-local skill; the plugin
   defers to it.
 
+## Guides
+
+- [Installation](docs/installation.md)
+- [How it works](docs/how-it-works.md)
+- [Security and permissions](docs/security-and-permissions.md)
+- [Troubleshooting](docs/troubleshooting.md)
+
 ## About this repository
 
-This repository is **generated** from `@noodleseed/agent-kit@0.24.0` by the Noodle Seed
+This repository is **generated** from `@noodleseed/agent-kit@0.32.0` by the Noodle Seed
 release process. Do not edit it by hand — changes land through <https://noodleseed.dev>
 releases. Docs: <https://docs.noodleseed.dev>.

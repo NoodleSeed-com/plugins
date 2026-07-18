@@ -22,7 +22,7 @@ managed secret and reference it only as `secret(...)`:
 
 ```sh
 export SOME_API_KEY=…            # the user sets this; it never appears in a file or prompt
-noodle secrets set SOME_API_KEY --runtime local --scope org --org local --from-env SOME_API_KEY   # local-run scope — see "Set the secret for local runs"
+noodle secrets set SOME_API_KEY --runtime local --from-env SOME_API_KEY   # same effective target as local dev/test/devtools
 ```
 
 In `server.ts` the key is only ever `secret("SOME_API_KEY")` — keep the raw value out of code, tests,
@@ -90,8 +90,24 @@ response: { tasks: '${response.items}' },
 ## Create, update, delete
 
 Pair the read/list with the mutations your intent tools need:
-- **Create / update** — `method: 'POST'` / `'PATCH'`; the request body is authored as `request: { field: '${input.x}' }` — the `request` object **is** the JSON body (do not nest it under `body`), and URL query params are the operation-level `query: [...]` array.
+- **Create / update** — `method: 'POST'` / `'PATCH'`; author the body as `request: { field: '${input.x}' }` (do not nest it under `body`). It is JSON by default; use `requestEncoding: 'form-urlencoded'` only when the API requires a URLSearchParams body. URL query params remain the operation-level `query: [...]` array.
 - **Delete / close** — many endpoints return `204 No Content`. Set `responseType: 'empty'`, which enforces the status and binds `{}` (there is no body to map).
+
+```ts
+search_quotes: {
+  type: 'read', method: 'POST', path: '/quotes/search',
+  requestEncoding: 'form-urlencoded',
+  request: {
+    'from airport id': '${args.fromAirportId}',
+    'aircraft[categories]': '${args.categories}', // arrays become one JSON field
+  },
+  // input / output / response omitted
+},
+```
+
+`form-urlencoded` accepts a request object, not a pre-encoded string. Noodle preserves field order,
+omits `undefined`, stringifies primitive values, JSON-stringifies arrays/nested objects into one
+field each, and owns the exact `application/x-www-form-urlencoded;charset=UTF-8` content type.
 
 ```ts
 close_task: {
@@ -110,17 +126,16 @@ model" section of `references/authoring-workflow.md`.
 
 ## Set the secret for local runs
 
-`noodle secrets set NAME --from-env NAME` **without a scope** writes to your global target (or errors) — which a local `noodle dev` never reads. Local `dev` resolves secrets under `org=local`, `app=<project-dir-slug>`, `env=dev` (the `…/o/local/<app>/dev/mcp` URL it prints). Set the secret at a matching local scope:
+Local `dev`, smoke commands, secrets, and variables resolve one effective target: explicit flags, then the project link, then the saved CLI target, then local defaults. Set the secret through that same target:
 
 ```sh
-# Simplest — org scope is visible to every local app. Pin --runtime local so a cloud login
-# (a non-local default runtime) does not send it to the hosted control plane:
-noodle secrets set SOME_API_KEY --runtime local --scope org --org local --from-env SOME_API_KEY
-# Or the exact env scope, using the app slug from the printed dev URL:
-noodle secrets set SOME_API_KEY --runtime local --scope env --org local --app <app-slug> --env dev --from-env SOME_API_KEY
+# Canonical: writes to the effective local environment used by dev/test/devtools:
+noodle secrets set SOME_API_KEY --runtime local --from-env SOME_API_KEY
+# Explicit flags remain available when intentionally testing a different local target:
+noodle secrets set SOME_API_KEY --runtime local --scope env --org <org> --app <app> --env <env> --from-env SOME_API_KEY
 ```
 
-Local secrets live in `./.env.noodle` (never commit it). **Symptom to recognize:** a required `secret(...)` that can’t resolve fails compile *closed*, so nothing is served. `noodle tools call` / `noodle test` / `noodle dev` name this directly as `connector_secret_unresolved` with the exact scoped-secret fix; an external MCP client (Inspector/mcpjam) hitting the loopback still sees an opaque `-32600 "not found"`. Either way, fix the secret’s scope, not the connector.
+Local secrets live in `./.env.noodle` (never commit it). A required `secret(...)` or `variable(...)` that cannot resolve fails boot closed. `noodle tools call` / `noodle test` / `noodle dev` / `noodle devtools` stop before exposing an empty endpoint and print the exact effective target plus recovery command.
 
 ## Prove real output
 

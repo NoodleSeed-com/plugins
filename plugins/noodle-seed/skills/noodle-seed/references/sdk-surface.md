@@ -127,7 +127,7 @@ prompt('summarize_ticket', {
 
 ### Non-trivial tool: ctx connectors, annotations, visibility, async
 
-`ctx` is `{ input, user, connectors }`. Bind connectors with `use` on the server, then call one inside `fulfil` to record a step. `annotations.readOnly()` declares a closed-world safe read. TypeScript action helpers enforce confirmation only with `{ confirm: true }`; omitted or `false` executes directly, and action/destructive/open-world hints alone never enable the gate. `visibility` defaults to `['model', 'app']` — set `['app']` to hide a helper from the model. `fulfil` may be `async` (the compiler awaits it while recording).
+`ctx` is `{ input, user, connectors }`. Bind connectors with `use` on the server, then call one inside `fulfil` to record a step. `annotations.readOnly()` declares a closed-world safe read. TypeScript action helpers enforce confirmation only with `{ confirm: true }`; omitted or `false` executes directly, and action/destructive/open-world hints alone never enable the gate. For stateless hosts that cannot present Noodle confirmation, set `interactions: { confirmationFallback: 'host' }` in the `server` options to explicitly trust native host write approval; omission remains fail-closed and the fallback never supplies missing `ctx.elicit` input. `visibility` defaults to `['model', 'app']` — set `['app']` to hide a helper from the model. `fulfil` may be `async` (the compiler awaits it while recording).
 
 ```ts
 import { annotations, connector, server, tool, z } from '@noodleseed/one';

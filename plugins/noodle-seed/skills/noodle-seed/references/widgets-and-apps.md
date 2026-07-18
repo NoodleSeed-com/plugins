@@ -18,9 +18,11 @@ Use `tool(name, { description, input, output, fulfil, view })` for a model-visib
 
 Generated widgets, official examples, and agent-authored MCP Apps must start with `@noodleseed/one/react` primitives and semantic tokens. Custom React/CSS or third-party components remain valid when the kit lacks the required behavior or the developer explicitly requests them.
 
-`noodle init my-app` defaults to a comprehensive server—tools, resource, prompt, state contract, branding, handoff, widget, and embedded assistant—so begin by adapting that complete surface. Use `--template hello` only when the product explicitly needs the minimal server.
+`noodle init my-app` defaults to the Core-v2 SaaS profile: federated OIDC placeholders, one explicit context-provider tool, MCP App UI, resource, prompt, state contract, branding, handoff, and embedded assistant. Begin by replacing the IdP/audience/domain placeholders. Use `--template widget`, `hello`, or `http-api` only when that narrower profile is intentional.
 
 The default composition rule is: build the smallest useful conversational surface. Inline has one purpose, one primary action, and at most two visible actions. Use progressive disclosure or a later conversational turn for secondary detail; request fullscreen only when the user asks or the task genuinely needs it. Never use nested scrolling. At 280px and wider, the widget must remain one-column, readable, touch-safe, and free of horizontal overflow. Remove secondary chrome before shrinking essential content.
+
+Treat 1 MiB of uncompressed UTF-8 HTML as the recommended initial React-widget budget, not a compatibility wall. Noodle Seed accepts up to 10 MiB per compiled widget and 20 MiB across a deployment; `noodle check` reports raw and gzip-estimated sizes. Keep large media and dynamic datasets in hosted assets/resources or bounded app-only tool responses instead of inflating the initial widget resource.
 
 Every production widget handles loading, empty, partial, stale, error, retry, and success states. Prefill fields from known tool results and choose safe, reversible defaults; preserve the user’s work across rerenders, and never preselect a consequential action. Use public React primitives and branding tokens. Never author against `ns-*`, `nsr-*`, or example-local `--nw-*` classes/tokens; those are implementation details, not alternate design systems.
 

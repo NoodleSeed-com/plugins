@@ -13,11 +13,12 @@ Run `noodle validate` (add `--json` for the machine-readable envelope, `--fix-pr
 
 | Code | Fix |
 | :-- | :-- |
+| `invalid_context_provider` | Designate at most one normal Core-v2 tool with `contextProvider: true`, and give it an empty object input schema. |
 | `yaml_parse_error` | Author in TypeScript; this means the compiled manifest was malformed — re-run from server.ts, do not hand-edit manifest data. |
 | `invalid_shape` | A field has the wrong type or structure; match the shape the compiler reports under `path` against the SDK builder you used. |
 | `invalid_name` | Rename the identifier to match the allowed pattern (lowercase, no spaces/reserved characters) cited at `path`. |
 | `duplicate_name` | Two tools/components share a name; give each a unique name at the cited `path`. |
-| `reserved_name` | Rename the tool at `path`; TypeScript `server()` always reserves `noodle_context`, while raw manifests reserve it when `server.context` is present. |
+| `reserved_name` | For Core v1 with `server.context`, rename `noodle_context`; Core v2 does not reserve it and uses an explicit context-provider tool. |
 | `unsupported_manifest_version` | Update the SDK/CLI so the emitted manifest version is supported; do not pin an old manifest shape. |
 | `reserved_for_future_version` | The verb at `path` (currently `compute` as a flow step) is reserved for a future core version; express the step with `use` (a connector operation), `map` (a pure mapping), or the shipped `ctx.elicit` input primitive instead. |
 | `invalid_operation_ref` | Fix the connector operation reference to `alias.operation` for an operation that exists on that connector. |
@@ -50,6 +51,8 @@ Run `noodle validate` (add `--json` for the machine-readable envelope, `--fix-pr
 | `duplicate_widget_tool` | A tool is bound to more than one widget; bind each tool to a single widget. |
 | `invalid_widget_binding` | Fix the `data-bind`/binding expression in the widget; it does not resolve against the tool output. |
 | `invalid_widget_state_handle` | Correct the state handle reference; declare it under `server(..., { state: { handles } })` and reference it by its declared name. |
+| `widget_html_too_large` | Reduce the compiled widget below 10 MiB UTF-8 (or raw HTML below 256 KiB) by moving large media and dynamic data into hosted resources or bounded app-only tools. |
+| `widget_html_total_too_large` | Reduce aggregate widget HTML below 20 MiB UTF-8; share or externalize large payloads instead of duplicating them across initial widget resources. |
 | `invalid_asset` | Fix the `asset("./path")` reference; the file must exist and be a supported asset type. |
 | `invalid_capability_requirement` | Correct the declared capability/permission requirement to a supported value. |
 | `state_secret_field` | Remove the secret-shaped field from widget/handle state; secrets must never be stored in state or sent to widgets. |

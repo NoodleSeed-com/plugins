@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "noodle-developer": {
+      "type": "http",
+      "url": "https://cloud.noodleseed.dev/developer/mcp"
+    },
+    "noodle-readiness": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "--yes",
+        "@noodleseed/one@0.59.0",
+        "plugin-mcp",
+        "--plugin-host",
+        "claude-code",
+        "--plugin-version",
+        "0.32.0",
+        "--developer-mcp-url",
+        "https://cloud.noodleseed.dev/developer/mcp",
+        "--developer-mcp-capability-version",
+        "1"
+      ]
+    }
+  }
+}

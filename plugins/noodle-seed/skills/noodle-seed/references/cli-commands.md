@@ -22,7 +22,7 @@ Every `noodle` command, grouped by area. Local authoring commands (`validate`, `
 | `noodle setup` | Reconcile project config and local agent files (dry-run unless `--write`). |
 | `noodle doctor` | Check login, service, project, validation, and config. |
 | `noodle agents` | Manage AI agent skills and project context (`setup`/`context`/`doctor`). |
-| `noodle auth` | Diagnose `customerAuth` OIDC/bridge readiness. |
+| `noodle auth` | Diagnose customer OIDC/provider declarations; `--live` probes delegated credentials without a business-tool call. |
 | `noodle docs` | Export docs in an LLM-readable format. |
 | `noodle connect` | Print connection setup for an agent host (Claude Code, Codex, Cursor, etc.). |
 | `noodle import` | Import an OpenAPI spec into a starter `server.ts`. |
@@ -63,6 +63,7 @@ Every `noodle` command, grouped by area. Local authoring commands (`validate`, `
 | `noodle login` | Authenticate with Noodle Seed Cloud. |
 | `noodle logout` | Clear saved credentials. |
 | `noodle whoami` | Print the current authenticated user. |
+| `noodle feedback` | Send sanitized product feedback (bug, idea, docs gap) to the Noodle Seed team. |
 | `noodle list` | Removed — promoted to `deployments list` (prints the recovery pointer and exits 2). |
 | `noodle github` | Connect, inspect, or disconnect the GitHub repository behind an app’s GitHub-native deploys (`connect`/`status`/`disconnect`; `connect` opens a browser install, `--repo` for headless). |
 | `noodle target` | Show or set the deployment target (local\|cloud\|other). |
@@ -100,6 +101,7 @@ Every `noodle` command, grouped by area. Local authoring commands (`validate`, `
 | `noodle help` | Print CLI usage and command help. |
 | `noodle version` | Print the installed CLI version. |
 | `noodle commands` | Print the machine-readable command catalog (`--json`) or a compact human list. Agents: `noodle commands --json` for every command, subcommand, flag, and exit code without reading source. |
+| `noodle features` | Print the versioned Claude, ChatGPT, and Embedded compatibility registry (`--json` or `--markdown`). |
 | `noodle update` | Check for, install, or safely repair the CLI update. Agents: `noodle update --check --json`, then `noodle update --yes --json`; add `--repair` only when the check reports `repairSafe: true`. |
 
 ## Deprecated

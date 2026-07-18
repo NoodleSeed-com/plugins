@@ -5,6 +5,7 @@
 - Authenticate
 - Link and target
 - Deploy and inspect
+- Installed Developer plugin handoff
 - Eject path (portable manifest)
 - Connect into a host
 - Access modes
@@ -24,6 +25,10 @@
 ## Deploy and inspect
 
 `noodle deploy` deploys the server. Then `noodle open` (latest URL), `noodle status`, `noodle inspect` (metadata, no secrets), `noodle smoke` (readiness diagnostics), and `noodle rollback <deploymentId>` to revert.
+
+## Installed Developer plugin handoff
+
+When this project was bootstrapped by the installed Noodle Developer plugin, preserve its managed launcher invocation for every local CLI command. After `deploy --json`, take the returned deployment ID to the connected remote `noodle-developer.inspect_deployment` tool. Use `noodle-developer.diagnose_app` only when the Cloud evidence needs diagnosis. Those tools inspect the selected organization and environment; they do not edit or replace the application source, which remains the coding agent's responsibility.
 
 ## Eject path (portable manifest)
 
