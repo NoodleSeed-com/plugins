@@ -5,14 +5,13 @@
       "url": "https://cloud.noodleseed.dev/developer/mcp"
     },
     "noodle-readiness": {
-      "type": "stdio",
       "command": "npx",
       "args": [
         "--yes",
         "@noodleseed/one@0.67.0",
         "plugin-mcp",
         "--plugin-host",
-        "claude-code",
+        "codex",
         "--plugin-version",
         "0.33.1",
         "--agent-kit-version",

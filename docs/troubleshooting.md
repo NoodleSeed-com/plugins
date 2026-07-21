@@ -6,7 +6,9 @@ Start a new agent session in the project and mention “Noodle Seed” or “bui
 
 ## The managed CLI cannot start
 
-Run the host's plugin update flow, then retry. Do not install an unrelated global CLI as a workaround. The plugin pins the compatible CLI release.
+The launcher preserves the original npm diagnostic. When npm cannot download or resolve the pinned package, it then emits a JSON error with code `plugin_cli_bootstrap_failed` and recovery steps. Check access to `https://registry.npmjs.org`, retry, then use the host's plugin update or reinstall flow if the failure continues. Do not install an unrelated global CLI as a workaround.
+
+A normal `noodle` validation, compile, test, or deployment error is not rewritten as a bootstrap failure: its original output and exit code pass through unchanged.
 
 ## Build Readiness is disconnected
 

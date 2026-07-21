@@ -1,7 +1,6 @@
 {
   "name": "noodle-seed",
-  "displayName": "Noodle Seed",
-  "version": "0.33.0",
+  "version": "0.33.1",
   "description": "Build production MCP servers and apps with Noodle Seed: author one TypeScript server.ts with the noodle CLI, validate and test locally, then deploy to a governed hosted MCP endpoint that works in ChatGPT, Claude, Codex, Cursor, Gemini, and every MCP client.",
   "author": {
     "name": "Noodle Seed",
@@ -18,7 +17,7 @@
     "codex",
     "noodleseed"
   ],
-  "mcpServers": "./.codex-mcp.json",
+  "mcpServers": "./.mcp.codex.json",
   "interface": {
     "displayName": "Noodle Seed",
     "shortDescription": "Build and deploy MCP servers and apps from one TypeScript file.",
@@ -26,11 +25,15 @@
     "developerName": "Noodle Seed",
     "category": "Developer Tools",
     "websiteURL": "https://noodleseed.dev",
+    "capabilities": [
+      "MCP servers",
+      "MCP apps",
+      "Hosted deployment"
+    ],
     "defaultPrompt": [
       "Create a ChatGPT app for my support workflow",
       "Create a Claude connector for my SaaS",
-      "Create an MCP app with a small UI",
-      "Create a Codex or Claude Code plugin for this repo"
+      "Create an MCP app with a small UI"
     ]
   }
 }

@@ -33,10 +33,9 @@ Full setup, updates, and removal: [docs/installation.md](docs/installation.md).
 
 ## What you get
 
-- The `noodle-seed` skill: the cold-start bootstrap plus the full Noodle Seed reference
-  set (SDK surface, CLI commands, compile-error fixes, authoring workflow, widgets, deploy).
-- After `noodle init`, projects carry their own self-updating project-local skill; the plugin
-  defers to it.
+- The lean `noodle-seed` bootstrap skill plus pinned launchers and MCP connections.
+- After `noodle init`, the plugin defers to the self-updating project-local skill, which carries
+  the compatible command guidance, references, examples, and project defaults.
 
 ## Guides
 
@@ -47,6 +46,6 @@ Full setup, updates, and removal: [docs/installation.md](docs/installation.md).
 
 ## About this repository
 
-This repository is **generated** from `@noodleseed/agent-kit@0.33.0` by the Noodle Seed
+This repository is **generated** from `@noodleseed/agent-kit@0.34.0` by the Noodle Seed
 release process. Do not edit it by hand — changes land through <https://noodleseed.dev>
 releases. Docs: <https://docs.noodleseed.dev>.
