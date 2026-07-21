@@ -6,7 +6,7 @@
     "command": "npx",
     "args": [
       "--yes",
-      "@noodleseed/one@0.65.0",
+      "@noodleseed/one@0.66.0",
       "plugin-mcp",
       "--plugin-host",
       "codex",
