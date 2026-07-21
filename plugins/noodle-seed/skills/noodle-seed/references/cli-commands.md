@@ -93,6 +93,7 @@ Every `noodle` command, grouped by area. Local authoring commands (`validate`, `
 | `noodle events` | The per-request MCP event stream with status/tool/client filters; `--session <id>` replays one session in order. Agents: add `--json` and filter (`--status tool_error\|mcp_error`) when debugging. |
 | `noodle alerts` | Analytics alert rules (`add\|list\|remove\|test`): an edge-triggered webhook fires when error share, error count, calls, or p95 latency breaches. Webhook URLs are stored server-side and shown redacted. |
 | `noodle policy` | Manage policy (status/list/show/effective/simulate/suspend/quota/rate/...). |
+| `noodle platform-auth` | Run aggregate-only super-admin WorkOS inventory, import, reconciliation, rollout, rollback, and finalization operations. |
 
 ## CLI maintenance
 
