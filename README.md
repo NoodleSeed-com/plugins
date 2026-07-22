@@ -46,6 +46,6 @@ Full setup, updates, and removal: [docs/installation.md](docs/installation.md).
 
 ## About this repository
 
-This repository is **generated** from `@noodleseed/agent-kit@0.35.0` by the Noodle Seed
+This repository is **generated** from `@noodleseed/agent-kit@0.36.0` by the Noodle Seed
 release process. Do not edit it by hand — changes land through <https://noodleseed.dev>
 releases. Docs: <https://docs.noodleseed.dev>.
