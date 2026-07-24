@@ -1,6 +1,6 @@
 {
   "name": "noodle-seed",
-  "version": "0.33.10",
+  "version": "0.33.11",
   "description": "Build production MCP servers and apps with Noodle Seed: author one TypeScript server.ts with the noodle CLI, validate and test locally, then deploy to a governed hosted MCP endpoint that works in ChatGPT, Claude, Codex, Cursor, Gemini, and every MCP client.",
   "author": {
     "name": "Noodle Seed",
