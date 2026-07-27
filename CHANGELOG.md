@@ -3,9 +3,9 @@
 This generated marketplace is published atomically by Noodle Seed System Release. Git commits
 and releases retain the complete history; this entry records the compatibility set in this tree.
 
-## 0.33.17
+## 0.33.18
 
-- Agent Kit `0.43.0`
-- CLI `@noodleseed/one@0.77.0`
+- Agent Kit `0.43.1`
+- CLI `@noodleseed/one@0.77.1`
 - MCP capability `1`
-- Plugin content fingerprint `sha256:9e666013210859a226e6b09f20db7c7dd637501f1f2afd1a6126a5a8a80dd489`
+- Plugin content fingerprint `sha256:a5ea2ded1ec6c94f55dd47e64437dfea562f45debc17a2ac474dd81cc326d4f5`
