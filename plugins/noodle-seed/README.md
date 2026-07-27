@@ -6,9 +6,9 @@ launcher. Project-specific guidance is generated into each project by `noodle in
 
 ## Installed compatibility
 
-- Plugin version: `0.33.20`
-- Agent Kit: `0.43.1`
-- CLI: `@noodleseed/one@0.79.0`
+- Plugin version: `0.33.21`
+- Agent Kit: `0.44.0`
+- CLI: `@noodleseed/one@0.80.0`
 - MCP capability: `1`
 
 These values are generated and released as one verified compatibility set. Do not edit them
