@@ -1,14 +1,14 @@
 # Noodle Seed plugin
 
 This is the installable Noodle Seed bootstrap for Claude Code, Codex, and Cursor. It connects
-the host to Noodle Seed MCP services and invokes one exact CLI package through a managed
-launcher. Project-specific guidance is generated into each project by `noodle init`.
+the host to Noodle Seed MCP services and invokes one exact CLI package behind typed local
+plugin functions. Project-specific guidance is generated into each project by `noodle init`.
 
 ## Installed compatibility
 
-- Plugin version: `0.33.38`
-- Agent Kit: `0.51.0`
-- CLI: `@noodleseed/one@0.89.1`
+- Plugin version: `0.33.39`
+- Agent Kit: `0.52.0`
+- CLI: `@noodleseed/one@0.90.0`
 - MCP capability: `1`
 
 These values are generated and released as one verified compatibility set. Do not edit them
@@ -16,7 +16,7 @@ inside an installed plugin.
 
 ## Trust boundary
 
-- The managed launcher may download the exact CLI package from the npm registry on first use.
+- The private plugin bootstrap may download the exact CLI package from the npm registry on first use.
 - The plugin connects only to the declared Noodle Seed MCP endpoints and does not forward host
   bearer tokens to business backends.
 - The plugin does not collect or send feedback without explicit approval for the disclosed
@@ -28,6 +28,6 @@ Read [security and permissions](https://github.com/NoodleSeed-com/plugins/blob/m
 
 ## Recovery
 
-If the managed launcher cannot resolve its pinned CLI, preserve the npm diagnostic, verify npm
+If the private plugin bootstrap cannot resolve its pinned CLI, preserve the npm diagnostic, verify npm
 registry access, then update or reinstall the plugin. See the
 [troubleshooting guide](https://github.com/NoodleSeed-com/plugins/blob/main/docs/troubleshooting.md) for the canonical checks.
