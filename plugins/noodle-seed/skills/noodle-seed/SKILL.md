@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server or MCP app, a ChatGPT app, a Claude or Gemini connector, an MCP server or app for Codex or Claude Code, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.41 hash:f61d00d26ca665c6 -->
+<!-- noodle-skill version:0.33.42 hash:f61d00d26ca665c6 -->
 
 # Noodle Seed bootstrap
 
