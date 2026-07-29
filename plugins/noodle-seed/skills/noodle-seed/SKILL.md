@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server or MCP app, a ChatGPT app, a Claude or Gemini connector, an MCP server or app for Codex or Claude Code, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.40 hash:57908e4b3abeaea7 -->
+<!-- noodle-skill version:0.33.41 hash:f61d00d26ca665c6 -->
 
 # Noodle Seed bootstrap
 
@@ -21,7 +21,7 @@ The supported `noodle-readiness.setup_project` tool installs the fuller, project
    - Existing project: call `noodle-readiness.setup_project` with `mode: "reconcile"` instead of overwriting unrelated files — the public fallback is `noodle setup --write`.
 3. **Switch to the project skill.** Read the newly installed project-local `noodle-seed` `SKILL.md`, select its route for the user-requested outcome, and stop bootstrap discovery. This handoff is the bootstrap stop condition.
 
-For authorized hosted work, use the supported `noodle-readiness` tools for linking, variables, secret-from-environment transfer, gated deployment, and feedback preview/submission. Show task-level progress and the exact target. On failure, report the structured error and its public `noodle ...` recovery command only.
+For authorized hosted work, use the supported `noodle-readiness` tools. Its deploy tool owns the canonical preflight, configuration, deployment, and readiness sequence. Follow every structured public `noodle ... --from-env` configuration action before resuming the same deploy; do not invent an internal command or a second sequence. Linking and each configuration write remain separately authorized mutations. Show task-level progress and the exact target. On failure, report the structured error, safe recovery commands, and resume command only.
 
 ## Bootstrap boundary
 
@@ -29,7 +29,7 @@ The bootstrap installs and hands off; it does not prescribe an end-to-end lifecy
 
 ## Safety
 
-- Keep secrets, bearer tokens, refresh tokens, static access keys, `.env.noodle` values, and `~/.noodle/config.json` out of prompts, logs, docs, tests, and generated files. Reference managed secrets as `secret("NAME")` in TypeScript and set them with `noodle secrets set`.
+- Keep secrets, bearer tokens, refresh tokens, static access keys, `.env` / `.env.noodle` values, and `~/.noodle/config.json` out of prompts, logs, docs, tests, and generated files. Reference managed secrets as `secret("NAME")` in TypeScript and set them with `noodle secrets set`.
 - Transfer a secret only with `noodle-readiness.set_cloud_secret_from_env` or the public `noodle secrets set ... --from-env NAME` fallback. Never read it with an ad hoc shell/file-parsing pipeline or a tool argument containing the secret value.
 - Do not hand-author manifest JSON/YAML, runtime artifacts, connector IR, or hosted asset metadata — the SDK emits them.
 - Do not add static data-plane credential paths; hosted access is identity-based.
