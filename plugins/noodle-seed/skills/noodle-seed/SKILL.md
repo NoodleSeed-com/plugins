@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server or MCP app, a ChatGPT app, a Claude or Gemini connector, an MCP server or app for Codex or Claude Code, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.42 hash:f61d00d26ca665c6 -->
+<!-- noodle-skill version:0.33.43 hash:d646851eaf7602e2 -->
 
 # Noodle Seed bootstrap
 
@@ -16,6 +16,7 @@ The supported `noodle-readiness.setup_project` tool installs the fuller, project
 ## Cold start (no project yet)
 
 1. **Use supported plugin functions.** Call the typed `noodle-readiness` tools yourself. They own the compatible CLI and isolated host profile. Never resolve, display, or ask the user to run an internal launcher, private installation path, shell wrapper, or global CLI install.
+   - On Windows, the supported shell is WSL2 Ubuntu Bash. If the host is running in native PowerShell, Command Prompt, or Git Bash, stop and give the single fallback `wsl --install -d Ubuntu`; do not expose an internal plugin path.
 2. **Scaffold or reconcile.**
    - New or empty directory: call `noodle-readiness.setup_project` with `mode: "initialize"` — the public fallback is `noodle init`.
    - Existing project: call `noodle-readiness.setup_project` with `mode: "reconcile"` instead of overwriting unrelated files — the public fallback is `noodle setup --write`.

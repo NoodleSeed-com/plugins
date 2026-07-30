@@ -6,13 +6,19 @@ plugin functions. Project-specific guidance is generated into each project by `n
 
 ## Installed compatibility
 
-- Plugin version: `0.33.42`
-- Agent Kit: `0.54.0`
-- CLI: `@noodleseed/one@0.93.0`
+- Plugin version: `0.33.43`
+- Agent Kit: `0.55.0`
+- CLI: `@noodleseed/one@0.94.0`
 - MCP capability: `1`
 
 These values are generated and released as one verified compatibility set. Do not edit them
 inside an installed plugin.
+
+## Supported platforms
+
+Run the plugin on macOS or from WSL2 Ubuntu Bash with Linux Node.js and npm.
+Native PowerShell, Command Prompt, and Git Bash are unsupported; from PowerShell, run `wsl --install -d Ubuntu`,
+then install and run the coding-agent host inside Ubuntu.
 
 ## Trust boundary
 

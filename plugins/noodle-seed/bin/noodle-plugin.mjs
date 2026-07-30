@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { homedir } from 'node:os';
 
-const CLI_PACKAGE = '@noodleseed/one@0.93.0';
+const CLI_PACKAGE = '@noodleseed/one@0.94.0';
 const HOST = 'claude-code';
 const compatibilityFile = resolve(dirname(fileURLToPath(import.meta.url)), '../noodle-plugin-compatibility.json');
 const configHome = join(homedir(), '.noodle', 'plugin-profiles', HOST);
@@ -14,7 +14,25 @@ const env = {
   NOODLE_CONFIG_HOME: configHome,
   NOODLE_PLUGIN_COMPATIBILITY_FILE: compatibilityFile,
 };
-const npmArgs = ['exec', '--yes', `--package=${CLI_PACKAGE}`, '--', 'noodle', ...process.argv.slice(2)];
+const argv = process.argv.slice(2);
+const WINDOWS_DISCOVERY_COMMANDS = new Set(['--help', '-h', 'help', '--version', '-v', 'version']);
+const NATIVE_WINDOWS_ERROR = {"code":"unsupported_platform","message":"Noodle CLI commands run on macOS or Windows through WSL2.","cause":"Native PowerShell, Command Prompt, and Git Bash are not supported.","fix":"Install WSL2 with Ubuntu and run Noodle from its Bash shell.","next":"wsl --install -d Ubuntu"};
+function rejectUnsupportedNativeWindows(argv) {
+  if (process.platform !== 'win32' || WINDOWS_DISCOVERY_COMMANDS.has(argv[0] ?? '')) return false;
+  if (argv.includes('--json')) {
+    process.stdout.write(`${JSON.stringify({ ok: false, error: NATIVE_WINDOWS_ERROR })}\n`);
+  } else {
+    process.stderr.write(`${[
+      `${NATIVE_WINDOWS_ERROR.code}: ${NATIVE_WINDOWS_ERROR.message}`,
+      `Cause: ${NATIVE_WINDOWS_ERROR.cause}`,
+      `Fix: ${NATIVE_WINDOWS_ERROR.fix}`,
+      `Next: ${NATIVE_WINDOWS_ERROR.next}`,
+    ].join('\n')}\n`);
+  }
+  process.exitCode = 2;
+  return true;
+}
+const npmArgs = ['exec', '--yes', `--package=${CLI_PACKAGE}`, '--', 'noodle', ...argv];
 const npmCli = join(dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js');
 const command = process.platform === 'win32' ? process.execPath : 'npm';
 const commandArgs = process.platform === 'win32' ? [npmCli, ...npmArgs] : npmArgs;
@@ -24,6 +42,7 @@ const BOOTSTRAP_FAILURE =
 let stderrTail = '';
 let bootstrapFailureDetected = false;
 let launchFailed = false;
+function launchCli() {
 const child = spawn(
   command,
   commandArgs,
@@ -64,3 +83,5 @@ child.once('close', (code, signal) => {
   }
   process.exitCode = code ?? 1;
 });
+}
+if (!rejectUnsupportedNativeWindows(argv)) launchCli();

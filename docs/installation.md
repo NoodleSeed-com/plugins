@@ -2,6 +2,16 @@
 
 Install the plugin once in your coding agent. It will use the compatible, plugin-managed Noodle CLI and connect the authenticated Noodle Developer MCP when those capabilities are available.
 
+## Supported platforms
+
+Use the plugin on macOS, or on Windows from WSL2 Ubuntu Bash with Linux Node.js and npm. Native PowerShell, Command Prompt, and Git Bash are not supported execution shells. From PowerShell, install the supported environment with:
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Then open the Ubuntu Bash shell and run the host and plugin installation there.
+
 ## Claude Code
 
 Run these slash commands inside Claude Code:

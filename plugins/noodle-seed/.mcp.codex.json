@@ -5,24 +5,24 @@
       "url": "https://cloud.noodleseed.dev/developer/mcp"
     },
     "noodle-readiness": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "--yes",
-        "@noodleseed/one@0.93.0",
+        "skills/noodle-seed/scripts/noodle-plugin.mjs",
         "plugin-mcp",
         "--plugin-host",
         "codex",
         "--plugin-version",
-        "0.33.42",
+        "0.33.43",
         "--agent-kit-version",
-        "0.54.0",
+        "0.55.0",
         "--plugin-content-hash",
-        "sha256:dca035856b45b83d11a053f020594b9a37ee7501a23ba8de536229d58c4a710e",
+        "sha256:af0122dae58079a3b670b565ccf8c25f2603882c7fbf5e9ae4318590d6ad4f81",
         "--developer-mcp-url",
         "https://cloud.noodleseed.dev/developer/mcp",
         "--developer-mcp-capability-version",
         "1"
-      ]
+      ],
+      "cwd": "."
     }
   }
 }

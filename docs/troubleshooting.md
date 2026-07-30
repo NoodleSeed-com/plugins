@@ -10,6 +10,10 @@ The launcher preserves the original npm diagnostic. When npm cannot download or 
 
 A normal `noodle` validation, compile, test, or deployment error is not rewritten as a bootstrap failure: its original output and exit code pass through unchanged.
 
+## Readiness reports `unsupported_platform` on Windows
+
+Run the host from WSL2 Ubuntu Bash, not native PowerShell, Command Prompt, and Git Bash. From PowerShell, run `wsl --install -d Ubuntu`, then install Linux Node.js 24 and the coding-agent host inside Ubuntu before reinstalling the plugin.
+
 ## Build Readiness is disconnected
 
 Restart the host after installation so it reloads the bundled MCP configuration. If the host cannot render MCP Apps, continue headlessly: validation, tests, and deploy still return structured results to the agent.
