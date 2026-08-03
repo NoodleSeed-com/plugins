@@ -1,0 +1,13 @@
+interface:
+  display_name: "Noodle Seed"
+  short_description: "Build and deploy MCP servers and apps"
+  default_prompt: "Use $noodle-seed to build, validate, test, and prepare a Noodle Seed MCP server or app from this workspace. Ask before any hosted mutation."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "noodle-developer"
+      description: "Inspect and operate existing Noodle Seed hosted apps and deployments"
+      transport: "streamable_http"
+      url: "https://cloud.noodleseed.dev/developer/mcp"
+policy:
+  allow_implicit_invocation: true

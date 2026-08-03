@@ -17,7 +17,7 @@
     "codex",
     "noodleseed"
   ],
-  "mcpServers": "./.mcp.codex.json",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Noodle Seed",
     "shortDescription": "Build and deploy MCP servers and apps from one TypeScript file.",
@@ -35,5 +35,6 @@
       "Create a Claude connector for my SaaS",
       "Create an MCP app with a small UI"
     ]
-  }
+  },
+  "skills": "./skills/"
 }

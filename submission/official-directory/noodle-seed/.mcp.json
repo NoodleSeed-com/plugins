@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "noodle-developer": {
+      "type": "http",
+      "url": "https://cloud.noodleseed.dev/developer/mcp"
+    }
+  }
+}
