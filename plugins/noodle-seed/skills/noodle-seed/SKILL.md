@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.60 hash:c2015ea431c309d2 -->
+<!-- noodle-skill version:0.33.61 hash:c2015ea431c309d2 -->
 
 # Noodle Seed bootstrap
 
