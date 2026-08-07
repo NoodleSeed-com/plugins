@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.71 hash:c2015ea431c309d2 -->
+<!-- noodle-skill version:0.33.72 hash:1a0d4b11a84923df -->
 
 # Noodle Seed bootstrap
 
@@ -18,9 +18,7 @@ Before cold-start work, check whether the active project already provides a proj
 Use the first available branch:
 
 1. **Readiness MCP.** When `noodle-readiness` is available, call the supported `noodle-readiness` tools yourself. Prefer `noodle-readiness.setup_project`, validation, test, check, configuration, and deployment functions because they return structured decisions and own the compatible CLI plus isolated host profile.
-2. **Inline execution.** When `noodle-readiness` is unavailable but the host provides a command-execution workspace, run the packaged launcher yourself with the exact arguments of the corresponding public `noodle` command. Resolve the launcher privately from this installed plugin:
-   - Plugin-root launcher: `node "${CLAUDE_PLUGIN_ROOT}/bin/noodle-plugin.mjs" <args>`.
-   - Skill-local launcher: from this skill directory, `node scripts/noodle-plugin.mjs <args>`.
+2. **Inline execution.** When `noodle-readiness` is unavailable but the host provides a command-execution workspace, run the packaged launcher yourself with the exact arguments of the corresponding public `noodle` command. From this skill directory, run `node scripts/noodle-plugin.mjs <args>`.
    Add `--json` whenever the public command supports it. Parse the structured result before continuing. Never display, narrate, or ask the user to run the launcher command or its installation path; report only the corresponding public `noodle ...` command and task-level outcome.
 3. **No local execution.** When `noodle-readiness` is unavailable and there is no command-execution workspace, do not claim that setup, validation, testing, configuration, or deployment ran. Explain that Noodle Seed authoring needs a coding workspace with command execution. The remote `noodle-developer` MCP may still inspect an existing hosted app; it cannot replace local authoring or readiness.
 
