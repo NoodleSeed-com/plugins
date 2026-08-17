@@ -24,6 +24,6 @@ Update the marketplace and reinstall the plugin. Compatibility is release-bound 
 
 ## Authentication or target error
 
-Complete OAuth sign-in, then select the intended organization and environment. Ask the agent to show the target before deploying.
+Complete OAuth sign-in once. For remote inspection, call `get_context` and pass the intended organization explicitly; for local CLI work, inspect or switch the saved default with `noodle orgs current` / `noodle orgs switch`. Ask the agent to show the full target before deploying.
 
 For commands, host-specific setup, and current known issues, see <https://docs.noodleseed.dev>.

@@ -26,7 +26,7 @@
   "data_handling": {
     "source_code_upload": false,
     "credentials_in_bundle": false,
-    "oauth_grant_boundary": "Cloud operations are limited to the organization and environments selected during authorization."
+    "oauth_grant_boundary": "One resource-scoped consent follows live organization memberships and roles; every scoped Cloud operation names its organization explicitly."
   },
   "review_assets": {
     "icon": "required-before-submission",

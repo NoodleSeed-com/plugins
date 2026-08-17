@@ -13,15 +13,15 @@
         "--plugin-host",
         "claude-code",
         "--plugin-version",
-        "0.33.92",
+        "0.33.93",
         "--agent-kit-version",
-        "0.70.0",
+        "0.71.0",
         "--plugin-content-hash",
-        "sha256:095f507dc3d75a7590f57d3e7bf8feec8ffa1a9483e7211f9cd84d5a7c9c2bd9",
+        "sha256:414c6bf4806df284d778aba8fcd2dac04615659264877f2f8b5613277d4c4844",
         "--developer-mcp-url",
         "https://cloud.noodleseed.dev/developer/mcp",
         "--developer-mcp-capability-version",
-        "1"
+        "2"
       ]
     }
   }

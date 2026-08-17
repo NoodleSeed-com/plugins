@@ -1,6 +1,6 @@
 # Security and permissions
 
-Noodle Seed uses the same OAuth identity as the Console and CLI. Hosted actions are scoped to the user's selected organization and environment, and every deploy remains attributable to that identity.
+Noodle Seed uses the same OAuth identity as the Console and CLI. One compact consent authorizes the Developer MCP resource; the connection then follows the user's current organization memberships and roles. Remote tools require an explicit organization on every scoped call, while the local CLI may keep a default organization for convenience. Every deploy remains attributable to that identity.
 
 The plugin's private execution boundary uses an isolated host profile. The Developer MCP receives authenticated, tenant-scoped requests; it does not ask the coding agent to forward bearer tokens to application backends.
 
@@ -21,7 +21,7 @@ The plugin's private execution boundary uses an isolated host profile. The Devel
 ## Safe operating rules
 
 - Sign in through the official OAuth flow; never paste access tokens, refresh tokens, secrets, or `.env` contents into chat.
-- Review the selected organization, application, environment, and deployment summary before a consequential action.
+- Review the explicit organization, application, environment, and deployment summary before a consequential action.
 - Store application credentials with the typed secret-from-environment function or `noodle secrets set ... --from-env NAME`, and reference them as `secret("NAME")` in TypeScript. Never place the value in chat, a command argument, or a shell pipeline.
 - Treat source code as local: the coding agent edits the repository and the CLI compiles the deployable artifact.
 - Deployment and secret writes require the host's normal approval controls when the host is not running autonomously.
