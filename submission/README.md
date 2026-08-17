@@ -26,7 +26,7 @@ Fields were re-verified on **2026-08-04** against:
 - Cursor plugin specification: <https://github.com/cursor/plugins>
 - Cursor marketplace publishing: <https://cursor.com/marketplace/publish>
 
-OpenAI's current flow submits an app-plus-skills plugin through the Platform portal using the production MCP URL, tool scan, starter prompts, five positive tests, and three negative tests. Its skill metadata declares the one remote MCP dependency in `agents/openai.yaml`; the native Codex manifest makes the same generated root installable for complete-plugin testing without changing that dependency. Anthropic's current flow consumes the same generated plugin root, connects the production remote MCP server, and collects listing, use-case, authentication, data-handling, test-account, compliance, and MCP App screenshot information.
+OpenAI's current flow submits an app-plus-skills plugin through the Platform portal using the production MCP URL, tool scan, starter prompts, five positive tests, and three negative tests. Its skill metadata declares the one remote MCP dependency in `agents/openai.yaml`; the native Codex manifest makes that generated root installable for complete-plugin testing without changing the dependency. Anthropic keeps two artifacts distinct: a Claude Code plugin repository for installation and a separate, non-uploadable Connector Directory worksheet that connects the production remote MCP server and gathers listing, use-case, authentication, data-handling, test-account, compliance, allowed-link, and MCP App screenshot information.
 
 ## Evidence boundary
 
