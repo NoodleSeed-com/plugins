@@ -6,9 +6,9 @@ plugin functions. Project-specific guidance is generated into each project by `n
 
 ## Installed compatibility
 
-- Plugin version: `0.33.119`
+- Plugin version: `0.33.120`
 - Agent Kit: `0.84.1`
-- CLI: `@noodleseed/one@0.139.3`
+- CLI: `@noodleseed/one@0.139.4`
 - MCP capability: `2`
 
 These values are generated and released as one verified compatibility set. Do not edit them
