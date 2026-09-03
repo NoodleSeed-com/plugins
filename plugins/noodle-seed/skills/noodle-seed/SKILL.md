@@ -3,7 +3,7 @@ name: noodle-seed
 description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.148 hash:1a0d4b11a84923df -->
+<!-- noodle-skill version:0.33.149 hash:eb379aad2816c63b -->
 
 # Noodle Seed bootstrap
 
@@ -26,9 +26,10 @@ On Windows, the supported shell is WSL2 Ubuntu Bash. If execution is native Powe
 
 ## Cold start (no project yet)
 
-1. New or empty directory: use `noodle-readiness.setup_project` with `mode: "initialize"`, or inline-execute the public fallback `noodle init --json`.
+1. New or empty directory: use `noodle-readiness.setup_project` with `mode: "initialize"`, or inline-execute the public fallback `noodle init --json`. This prepares the SaaS profile, installs pinned project-local tooling, and runs local checks. Preserve the existing package manager; use `install: false` / `--no-install` only for explicitly files-only work.
 2. Existing project: use `noodle-readiness.setup_project` with `mode: "reconcile"`, or inline-execute `noodle setup --write --json`. Reconcile instead of overwriting unrelated files.
 3. Read the newly installed project-local `noodle-seed` `SKILL.md`, select its route for the requested outcome, and stop bootstrap discovery. This handoff is the bootstrap stop condition.
+Inspect `setup.ready`, `completed`, `failed`, `proof`, and `restartRequired`. A failed stage is not completion: repair that stage and retry the same public command without `--force`. Files-only output is unverified; local-synthetic proof never proves customer identity, backend writes, or hosted operation. Read the new context explicitly in an existing session; never launch a nested agent or claim it reloaded automatically.
 
 After handoff, the project-local route decides which public command is needed. Continue to prefer typed `noodle-readiness` tools. If they remain unavailable, inline-execute that route’s exact public CLI arguments through the same packaged launcher. Do not invent a second lifecycle or bypass the project skill.
 
