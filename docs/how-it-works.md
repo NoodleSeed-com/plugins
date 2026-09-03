@@ -15,3 +15,5 @@ The plugin is a distribution bundle, not a vibe-coding product. Your coding agen
 `prompt → author TypeScript → validate → test → preview/check → deployment decision → deploy → inspect/diagnose`
 
 The plugin intentionally contains no long-form references or examples. It defers to the richer project-local skill after `noodle init`, so every project carries the commands, examples, and defaults generated for its compatible Agent Kit.
+
+With existing sign-in, `preflight_build` can inspect an explicit organization/application/environment before publication, without requiring a link. It returns the same prerequisite checklist as `noodle deploy preflight --json`; it does not set configuration, upload assets or mark the build as deployed. A passing report is not proof of a real backend operation or host journey.

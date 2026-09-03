@@ -15,6 +15,7 @@ The plugin's private execution boundary uses an isolated host profile. The Devel
 
 - Each host keeps plugin CLI auth and target state under `~/.noodle/plugin-profiles/<host>`, separate from ordinary CLI state. The project skill and managed context are written only by an explicit `init` or `agents setup --write` flow.
 - Source code is not uploaded to the Developer MCP. The coding agent edits source locally; the CLI compiles and deploys the artifact only after the normal deployment decision.
+- A requested deployment preflight sends the compiled definition and asset metadata to the configured deployment service for validation. It sends no asset bytes and performs no backend operation. Routine login refresh may renew saved credentials.
 - Secrets and OAuth credentials are excluded from manifests, plugin files, widget payloads, diagnostics, and feedback drafts. Application secrets are resolved by the hosted credential boundary.
 - Noodle Seed does not send a feedback draft unless the user gives explicit approval for the exact previewed proposal and destination. Declining or ignoring the request performs no network call and causes no retry.
 
