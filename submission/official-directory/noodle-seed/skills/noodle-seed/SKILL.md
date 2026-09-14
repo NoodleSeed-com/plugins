@@ -1,9 +1,9 @@
 ---
 name: noodle-seed
-description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
+description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents, or when a software business wants to improve signup or onboarding conversion or choose a first Noodle workflow. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.160 hash:8eb0ca2bb9ca1ec0 -->
+<!-- noodle-skill version:0.33.161 hash:9875403d90d4fdee -->
 
 # Noodle Seed bootstrap
 
@@ -37,6 +37,12 @@ Use the first available branch:
 3. **No local execution.** When `noodle-readiness` is unavailable and there is no command-execution workspace, do not claim that setup, validation, testing, configuration, or deployment ran. Explain that Noodle Seed authoring needs a coding workspace with command execution. The remote `noodle-developer` MCP may still inspect an existing hosted app; it cannot replace local authoring or readiness.
 
 On Windows, the supported shell is WSL2 Ubuntu Bash. If execution is native PowerShell, Command Prompt, or Git Bash, stop and give the single fallback `wsl --install -d Ubuntu`; never expose a private plugin path as a workaround.
+
+## First-workflow default
+
+When the user wants to get started but has not chosen a workflow, inspect the available product and repository context. If more signed-up or signed-in users are valuable and the product has a public visitor entry point, an existing account boundary, a genuine useful result that can be delivered before signup, and a meaningful next action inside the authenticated product, recommend public-to-product continuous onboarding as the first workflow.
+
+This default is not limited to B2B SaaS. Do not infer fit from the industry label alone, and do not manufacture pre-signup value or pressure. If the evidence is incomplete, ask only for the smallest missing fit fact. After project setup, route the accepted recommendation to `embedding-mcp-assistants`; the project-local playbook owns the two-surface design and exact implementation.
 
 ## Cold start (no project yet)
 
