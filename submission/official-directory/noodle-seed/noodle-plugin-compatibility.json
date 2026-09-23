@@ -1,9 +1,9 @@
 {
-  "agentKitVersion": "0.108.0",
-  "cliVersion": "0.182.0",
+  "agentKitVersion": "0.109.0",
+  "cliVersion": "0.183.0",
   "developerMcpCapabilityVersion": "2",
   "developerMcpUrl": "https://cloud.noodleseed.dev/developer/mcp",
-  "pluginVersion": "0.33.177",
-  "pluginContentHash": "sha256:ed700aad7784a068ccafe144cbae3d3e52eda1a769790ca945337e890e8ed399",
+  "pluginVersion": "0.33.178",
+  "pluginContentHash": "sha256:c54c6f416fc7a2d3d2faea47621f3a9f6da17e93153c713a12f382252bfeb255",
   "schemaVersion": 2
 }
