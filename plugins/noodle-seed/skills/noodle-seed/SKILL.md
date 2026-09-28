@@ -1,9 +1,9 @@
 ---
 name: noodle-seed
-description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents, or when a software business wants to improve signup or onboarding conversion or choose a first Noodle workflow. Bootstraps Noodle Seed — TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
+description: Use when asked to build, create, or ship an MCP server, MCP app, AI app, or connector, or to make a product, API, or SaaS reachable by AI agents. Bootstraps Noodle Seed TypeScript authoring with the noodle CLI, local validation and testing, and governed hosted deployment.
 ---
 
-<!-- noodle-skill version:0.33.185 hash:9875403d90d4fdee -->
+<!-- noodle-skill version:0.33.186 hash:10be23afa8bc857b -->
 
 # Noodle Seed bootstrap
 
@@ -38,20 +38,12 @@ Use the first available branch:
 
 On Windows, the supported shell is WSL2 Ubuntu Bash. If execution is native PowerShell, Command Prompt, or Git Bash, stop and give the single fallback `wsl --install -d Ubuntu`; never expose a private plugin path as a workaround.
 
-## First-workflow default
-
-When the user wants to get started but has not chosen a workflow, inspect the available product and repository context. If more signed-up or signed-in users are valuable and the product has a public visitor entry point, an existing account boundary, a genuine useful result that can be delivered before signup, and a meaningful next action inside the authenticated product, recommend public-to-product continuous onboarding as the first workflow.
-
-This default is not limited to B2B SaaS. Do not infer fit from the industry label alone, and do not manufacture pre-signup value or pressure. If the evidence is incomplete, ask only for the smallest missing fit fact. After project setup, route the accepted recommendation to `embedding-mcp-assistants`; the project-local playbook owns the two-surface design and exact implementation.
-
 ## Cold start (no project yet)
 
 1. New or empty directory: use `noodle-readiness.setup_project` with `mode: "initialize"`, or inline-execute the public fallback `noodle init --json`. This prepares the SaaS profile, installs pinned project-local tooling, and runs local checks. Preserve the existing package manager; use `install: false` / `--no-install` only for explicitly files-only work.
 2. Existing project: use `noodle-readiness.setup_project` with `mode: "reconcile"`, or inline-execute `noodle setup --write --json`. Reconcile instead of overwriting unrelated files.
 3. Read the newly installed project-local `noodle-seed` `SKILL.md`, select its route for the requested outcome, and stop bootstrap discovery. This handoff is the bootstrap stop condition.
 Inspect `setup.ready`, `completed`, `failed`, `proof`, and `restartRequired`. A failed stage is not completion: repair that stage and retry the same public command without `--force`. Files-only output is unverified; local-synthetic proof never proves customer identity, backend writes, or hosted operation. Read the new context explicitly in an existing session; never launch a nested agent or claim it reloaded automatically.
-
-After handoff, the project-local route decides which public command is needed. Continue to prefer typed `noodle-readiness` tools. If they remain unavailable, inline-execute that route’s exact public CLI arguments through the same packaged launcher. Do not invent a second lifecycle or bypass the project skill.
 
 For authorized hosted work, preserve the canonical preflight, configuration, deployment, and readiness sequence. Follow every structured public `noodle ... --from-env` configuration action before resuming the same deploy. Linking and each configuration write remain separately authorized mutations. Show task-level progress and the exact target. On failure, report the structured error, safe public recovery commands, and resume command only.
 
